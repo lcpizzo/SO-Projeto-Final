@@ -45,10 +45,10 @@ function setup(){
       
   fill(255, 255, 255);
   for(var i = 10; i < width; i += 200)
-    rect(i, (height / 7) * 2, 100, 10);
+    rect(i, ((height / 7) * 2)/* - 5*/, 100, 10);
 
   for(var i = 10; i < width; i += 200)
-    rect(i, (height / 7) * 5, 100, 10);
+    rect(i, ((height / 7) * 5)/* - 5*/, 100, 10);
 
 
   // ======================================================
@@ -91,6 +91,18 @@ function setup(){
       rect(i, j, 10, 4);
   */
 
+  // ======================================================
+  // Separando os slots
+  /*stroke(0, 0, 0)
+  fill(0, 0, 0);
+
+  for(var i = 1; i <= 10; i++){
+   line((width / 10) * i, 0, (width / 10) * i, height); 
+  }
+
+  for(var i = 1; i <= 10; i++){
+   line(0, (height / 7) * i, width, (height / 7) * i); 
+  }*/
 }
 
 function draw(){
