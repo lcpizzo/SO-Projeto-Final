@@ -53,13 +53,17 @@ int main(void)
     const int GRID_CONST_X = 10;
     const int GRID_CONST_Y = 7;
 
-    const int screenWidth = GRID_CONST_X * 100;
-    const int screenHeight = GRID_CONST_Y * 70;
+    const int screenWidth = GRID_CONST_X * 85;
+    const int screenHeight = GRID_CONST_Y * 85;
     
     const int gridSize_x = screenWidth/GRID_CONST_X;
     const int gridSize_y = screenHeight/GRID_CONST_Y;
 
-    InitWindow(screenWidth, screenHeight, "Projeto SO Final - teste player");
+    InitWindow(screenWidth, screenHeight, "Projeto SO Final - teste player && scenario");
+    
+    Texture2D background = LoadTexture("../Designs/Scenario/scenario_prototype_3.png");
+    
+    Texture2D frogg_end = LoadTexture("../Designs/Player/frog_jumping_prototype.png");
     
     Player frogg;
     frogg.texture = LoadTexture("../Designs/Player/frog_prototype.png");
@@ -89,22 +93,26 @@ int main(void)
 
             ClearBackground(RAYWHITE);
             
+            DrawTextureEx(background, (Vector2) {0, 0}, 0.0f, 0.55f, WHITE);
+            
             for (int i = 0; i <= screenWidth/gridSize_x; i++) DrawRectangle(gridSize_x*i, 0, 1, screenHeight, SKYBLUE);
             for (int i = 0; i <= screenHeight/gridSize_y; i++) DrawRectangle(0, gridSize_y*i, screenWidth, 1, SKYBLUE);
             
-            DrawRectangle(0, gridSize_y*3, screenWidth, gridSize_y, DARKBLUE);
-            
-            if(end)
+            if(end){
                 DrawText("Game Over", screenWidth / 2, 70, 50, DARKGRAY);
+                DrawTextureEx(frogg_end, frogg.position_v, frogg.rotation*90, 0.7, WHITE);
+            }
+            else
+                DrawTextureEx(frogg.texture, frogg.position_v, frogg.rotation*90, 0.7, WHITE);
+
 
             DrawText("move the frogg with arrow keys", 10, 10, 20, DARKGRAY);
             
-            DrawText(TextFormat("frogg Position real: %f %f", frogg.position_r.x, frogg.position_r.y), 10, 30, 20, DARKGRAY);
-            DrawText(TextFormat("frogg Position virtual: %f %f", frogg.position_v.x, frogg.position_v.y), 10, 60, 20, DARKGRAY);
-            DrawText(TextFormat("Mouse Position: %f %f", GetMousePosition().x, GetMousePosition().y), 10, 90, 20, DARKGRAY);
+            DrawText(TextFormat("frogg Position real: %f %f", frogg.position_r.x, frogg.position_r.y), 10, 30, 20, WHITE);
+            DrawText(TextFormat("frogg Position virtual: %f %f", frogg.position_v.x, frogg.position_v.y), 10, 60, 20, WHITE);
+            DrawText(TextFormat("Mouse Position: %f %f", GetMousePosition().x, GetMousePosition().y), 10, 90, 20, WHITE);
 
-            DrawTextureEx(frogg.texture, frogg.position_v, frogg.rotation*90, 0.7, WHITE);
-
+            
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
