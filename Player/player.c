@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include <math.h>
 
 bool end;
 
@@ -10,39 +11,32 @@ enum dir{
 };
 
 typedef struct Player{
-    Vector2 position_r;
-    Vector2 position_v;
+    Vector2 position;
+    Vector2 size;
     Vector2 movement;
     Texture2D texture;
     int rotation;
 } Player;
 
 void updatePlayer(Player *player){
-    if (IsKeyPressed(KEY_RIGHT) && player->position_r.x+player->movement.x < GetScreenWidth()){
-        player->position_r.x += player->movement.x;
+    if (IsKeyPressed(KEY_RIGHT) && player->position.x+player->movement.x < GetScreenWidth()){
+        player->position.x += player->movement.x;
         player->rotation = RIGHT;
-        player->position_v.x = player->position_r.x + player->movement.x;
-        player->position_v.y = player->position_r.y;
     }
-    if (IsKeyPressed(KEY_LEFT) && player->position_r.x-player->movement.x > 0){
-        player->position_r.x -= player->movement.x;
+    if (IsKeyPressed(KEY_LEFT) && player->position.x-player->movement.x > 0){
+        player->position.x -= player->movement.x;
         player->rotation = LEFT;
-        player->position_v.x = player->position_r.x;
-        player->position_v.y = player->position_r.y + player->movement.y;
     }
-    if (IsKeyPressed(KEY_UP) && player->position_r.y-player->movement.y > 0){
-        player->position_r.y -= player->movement.y;
+    if (IsKeyPressed(KEY_UP) && player->position.y-player->movement.y > 0){
+        player->position.y -= player->movement.y;
         player->rotation = UP;
-        player->position_v = player->position_r;
     }
-    if (IsKeyPressed(KEY_DOWN) && player->position_r.y+player->movement.y < GetScreenHeight()){
-        player->position_r.y += player->movement.y;
+    if (IsKeyPressed(KEY_DOWN) && player->position.y+player->movement.y < GetScreenHeight()){
+        player->position.y += player->movement.y;
         player->rotation = DOWN;
-        player->position_v.x = player->position_r.x + player->movement.x;
-        player->position_v.y = player->position_r.y + player->movement.y;
     }
     
-    if (player->position_r.y == player->movement.y*3) end = true;
+    if (player->position.y == floor(player->movement.y*3+player->movement.y/2)) end = true;
     else end = false;
 }
 
@@ -69,10 +63,11 @@ int main(void)
     frogg.texture = LoadTexture("../Designs/Player/frog_prototype.png");
     frogg.movement.x = (float)gridSize_x;
     frogg.movement.y = (float)gridSize_y;
-    frogg.position_r.x = (float)gridSize_x*5;
-    frogg.position_r.y = (float)gridSize_y*6;
-    frogg.position_v = frogg.position_r;
+    frogg.position.x = (float)gridSize_x*5 + gridSize_x/2;
+    frogg.position.y = (float)gridSize_y*6 + gridSize_y/2;
     frogg.rotation = UP;
+    frogg.size.x = frogg.texture.width*0.7f;
+    frogg.size.y = frogg.texture.height*0.7f;
     
     end = false;
     
@@ -100,19 +95,25 @@ int main(void)
             
             if(end){
                 DrawText("Game Over", screenWidth / 2, 70, 50, DARKGRAY);
-                DrawTextureEx(frogg_end, frogg.position_v, frogg.rotation*90, 0.7, WHITE);
+                DrawTexturePro(frogg_end,                                               
+                            (Rectangle) {0.0f, 0.0f, frogg_end.width, frogg_end.height},
+                            (Rectangle) {frogg.position.x,frogg.position.y, frogg_end.width*0.6, frogg_end.height*0.6},    
+                            (Vector2) {frogg.size.x/2, frogg.size.y/2},                                     
+                            frogg.rotation*90.0f, WHITE);                                                   
             }
             else
-                DrawTextureEx(frogg.texture, frogg.position_v, frogg.rotation*90, 0.7, WHITE);
-
-
+                DrawTexturePro(frogg.texture,                                                               //texture
+                        (Rectangle) {0.0f, 0.0f, frogg.texture.width, frogg.texture.height},            //Source Rectangle = parte da textura que será usada
+                        (Rectangle) {frogg.position.x,frogg.position.y, frogg.size.x, frogg.size.y},    //Destination Rectangle = posição na tela
+                        (Vector2) {frogg.size.x/2, frogg.size.y/2},                                     //Origin = ponto de rotação da textura
+                        frogg.rotation*90.0f, WHITE);                                                   //Rotation, colour
+            
+            
             DrawText("move the frogg with arrow keys", 10, 10, 20, DARKGRAY);
             
-            DrawText(TextFormat("frogg Position real: %f %f", frogg.position_r.x, frogg.position_r.y), 10, 30, 20, WHITE);
-            DrawText(TextFormat("frogg Position virtual: %f %f", frogg.position_v.x, frogg.position_v.y), 10, 60, 20, WHITE);
-            DrawText(TextFormat("Mouse Position: %f %f", GetMousePosition().x, GetMousePosition().y), 10, 90, 20, WHITE);
-
-            
+            DrawText(TextFormat("frogg Position: %f %f", frogg.position.x, frogg.position.y), 10, 30, 20, WHITE);
+            DrawText(TextFormat("Mouse Position: %f %f", GetMousePosition().x, GetMousePosition().y), 10, 60, 20, WHITE);
+                
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
