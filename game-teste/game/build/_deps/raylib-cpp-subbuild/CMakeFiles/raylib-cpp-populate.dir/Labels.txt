@@ -1,0 +1,14 @@
+# Target labels
+ raylib-cpp-populate
+# Source files and their labels
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/CMakeFiles/raylib-cpp-populate
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/CMakeFiles/raylib-cpp-populate.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/CMakeFiles/raylib-cpp-populate-complete.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/raylib-cpp-populate-prefix/src/raylib-cpp-populate-stamp/raylib-cpp-populate-build.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/raylib-cpp-populate-prefix/src/raylib-cpp-populate-stamp/raylib-cpp-populate-configure.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/raylib-cpp-populate-prefix/src/raylib-cpp-populate-stamp/raylib-cpp-populate-download.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/raylib-cpp-populate-prefix/src/raylib-cpp-populate-stamp/raylib-cpp-populate-install.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/raylib-cpp-populate-prefix/src/raylib-cpp-populate-stamp/raylib-cpp-populate-mkdir.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/raylib-cpp-populate-prefix/src/raylib-cpp-populate-stamp/raylib-cpp-populate-patch.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/raylib-cpp-populate-prefix/src/raylib-cpp-populate-stamp/raylib-cpp-populate-test.rule
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/raylib-cpp-populate-prefix/src/raylib-cpp-populate-stamp/raylib-cpp-populate-update.rule

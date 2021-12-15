@@ -1,0 +1,3 @@
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/CMakeFiles/rebuild_cache.dir
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/CMakeFiles/raylib-cpp-populate.dir
+/home/guijun/Área de Trabalho/grad/sistemOps/SO-Projeto-Final/game-teste/game/build/_deps/raylib-cpp-subbuild/CMakeFiles/edit_cache.dir

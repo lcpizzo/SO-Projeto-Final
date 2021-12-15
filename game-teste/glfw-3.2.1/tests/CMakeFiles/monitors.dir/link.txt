@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/monitors.dir/monitors.c.o CMakeFiles/monitors.dir/__/deps/getopt.c.o CMakeFiles/monitors.dir/__/deps/glad.c.o  -o monitors -Wl,-rpath,"/home/guijun/Área de Trabalho/grad/sistemOps/glfw-3.2.1/src" ../src/libglfw.so.3.2 -lm 
