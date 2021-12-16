@@ -8,7 +8,6 @@
 #include "raylib.h"
 
 bool end;
-bool final;
 
 int main(void) {
   // Initialization
@@ -77,7 +76,7 @@ int main(void) {
     // Update
     //----------------------------------------------------------------------------------
     end = updatePlayer(&frogg, end);
-    updateEnemies(final, &waterLily, &truck, &redCar);
+    updateEnemies(&waterLily, &truck, &redCar);
 
     //----------------------------------------------------------------------------------
 
