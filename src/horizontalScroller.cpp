@@ -8,13 +8,14 @@
 
 void updateWaterLily(HorizontalScroller *waterLily, bool final) {
   // movement
-  // if (waterLily->position.x > 0) {
-
-  // }
-  if (!final) {
-    // printf("final\n");
+  if (waterLily->position.x > 0) {
     waterLily->position.x -= waterLily->movement.x * waterLily->speed.x;
+  } else {
+    waterLily->position.x = GetScreenWidth() + (waterLily->size.x + 100);
   }
+  // if (!final) {
+  //   // printf("final\n");
+  // }
 }
 
 void updateWaterLilyRight(HorizontalScroller *waterLily, bool final) {
@@ -27,22 +28,17 @@ void updateVehicle(HorizontalScroller *vehicle, bool final) {
   // movement
   if (vehicle->position.x > 0) {
     vehicle->position.x -= vehicle->movement.x * vehicle->speed.x;
+  } else {
+    vehicle->position.x = GetScreenWidth() + (vehicle->size.x + 100);
   }
 }
 
 void updateEnemies(bool final, HorizontalScroller *waterLily, HorizontalScroller *truck, HorizontalScroller *redCar) {
-  updateWaterLilyRight(waterLily, final);
   std::thread threadUpdateWaterLily(updateWaterLily, waterLily, final);
-  // std::thread threadUpdateWaterLilyRight(updateWaterLilyRight, waterLily);
-  std::thread threadUpdateVehicle(updateVehicle, truck, final);
-  // updateVehicle(&truck);
+  std::thread threadUpdateTruck(updateVehicle, truck, final);
+  std::thread threadUpdateRedCar(updateVehicle, redCar, final);
 
-  if (waterLily->position.x < (float)0) {
-    final = true;
-  }
   threadUpdateWaterLily.join();
-
-  // threadUpdateWaterLilyRight.join();
-  updateVehicle(redCar, final);
-  threadUpdateVehicle.join();
+  threadUpdateTruck.join();
+  threadUpdateRedCar.join();
 }

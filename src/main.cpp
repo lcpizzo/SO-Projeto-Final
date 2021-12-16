@@ -43,7 +43,7 @@ int main(void) {
   waterLily.texture = LoadTexture("./Designs/water_lily.png");
   waterLily.movement.x = (float)gridSize_x;
   waterLily.position.x = (float)gridSize_x * 9;
-  waterLily.position.y = (float)gridSize_x * 3;
+  waterLily.position.y = (float)gridSize_y * 3;
   waterLily.speed.x = 0.02;
   waterLily.size.x = waterLily.texture.width * 0.7f;
   waterLily.size.y = waterLily.texture.height * 0.7f;
@@ -52,7 +52,7 @@ int main(void) {
   truck.texture = LoadTexture("./Designs/Enimies/truck.png");
   truck.movement.x = (float)gridSize_x;
   truck.position.x = (float)gridSize_x * 10;
-  truck.position.y = (float)gridSize_x * 4;
+  truck.position.y = (float)gridSize_y * 4;
   truck.speed.x = 0.01;
   truck.size.x = truck.texture.width * 0.7f;
   truck.size.y = truck.texture.height * 0.7f;
@@ -61,7 +61,7 @@ int main(void) {
   redCar.texture = LoadTexture("./Designs/Enimies/red_car.png");
   redCar.movement.x = (float)gridSize_x;
   redCar.position.x = (float)gridSize_x * 10;
-  redCar.position.y = (float)gridSize_x * 4;
+  redCar.position.y = (float)gridSize_y * 1;
   redCar.speed.x = 0.03;
   redCar.size.x = redCar.texture.width * 0.7f;
   redCar.size.y = redCar.texture.height * 0.7f;
