@@ -11,6 +11,6 @@ typedef struct HorizontalScroller {
   Vector2 speed;
 } HorizontalScroller;
 
-void updateEnemies(HorizontalScroller *waterLily, HorizontalScroller *truck, HorizontalScroller *redCar);
+void updateEnemies(HorizontalScroller *waterLily, HorizontalScroller *truck, HorizontalScroller *redCar, HorizontalScroller *blueCar, HorizontalScroller *yellowCar);
 
 #endif

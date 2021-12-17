@@ -65,6 +65,24 @@ int main(void) {
   redCar.size.x = redCar.texture.width * 0.7f;
   redCar.size.y = redCar.texture.height * 0.7f;
 
+  HorizontalScroller blueCar;
+  blueCar.texture = LoadTexture("./Designs/Enimies/blue_car.png");
+  blueCar.movement.x = (float)gridSize_x;
+  blueCar.position.x = (float)gridSize_x * 10;
+  blueCar.position.y = (float)gridSize_y * 2;
+  blueCar.speed.x = 0.037;
+  blueCar.size.x = blueCar.texture.width * 0.7f;
+  blueCar.size.y = blueCar.texture.height * 0.7f;
+
+  HorizontalScroller yellowCar;
+  yellowCar.texture = LoadTexture("./Designs/Enimies/yellow_car.png");
+  yellowCar.movement.x = (float)gridSize_x;
+  yellowCar.position.x = (float)gridSize_x * 10;
+  yellowCar.position.y = (float)gridSize_y * 5;
+  yellowCar.speed.x = 0.047;
+  yellowCar.size.x = yellowCar.texture.width * 0.7f;
+  yellowCar.size.y = yellowCar.texture.height * 0.7f;
+
   end = false;
 
   SetTargetFPS(60);  // Set our game to run at 60 frames-per-second
@@ -76,7 +94,7 @@ int main(void) {
     // Update
     //----------------------------------------------------------------------------------
     end = updatePlayer(&frogg, end);
-    updateEnemies(&waterLily, &truck, &redCar);
+    updateEnemies(&waterLily, &truck, &redCar, &blueCar, &yellowCar);
 
     //----------------------------------------------------------------------------------
 
@@ -108,6 +126,16 @@ int main(void) {
                      (Rectangle){redCar.position.x, redCar.position.y, redCar.size.x, redCar.size.y},
                      (Vector2){4, 4},
                      UP, WHITE);
+      DrawTexturePro(blueCar.texture,
+                     (Rectangle){0.0f, 0.0f, blueCar.texture.width, blueCar.texture.height},
+                     (Rectangle){blueCar.position.x, blueCar.position.y, blueCar.size.x, blueCar.size.y},
+                     (Vector2){4, 4},
+                     UP, WHITE);
+      DrawTexturePro(yellowCar.texture,
+                     (Rectangle){0.0f, 0.0f, yellowCar.texture.width, yellowCar.texture.height},
+                     (Rectangle){yellowCar.position.x, yellowCar.position.y, yellowCar.size.x, yellowCar.size.y},
+                     (Vector2){4, 4},
+                     UP, WHITE);
       DrawTexturePro(frogg_end,
                      (Rectangle){0.0f, 0.0f, frogg_end.width, frogg_end.height},
                      (Rectangle){frogg.position.x, frogg.position.y, frogg_end.width * 0.6, frogg_end.height * 0.6},
@@ -132,6 +160,16 @@ int main(void) {
       DrawTexturePro(redCar.texture,
                      (Rectangle){0.0f, 0.0f, redCar.texture.width, redCar.texture.height},
                      (Rectangle){redCar.position.x, redCar.position.y, redCar.size.x, redCar.size.y},
+                     (Vector2){4, 4},
+                     UP, WHITE);
+      DrawTexturePro(blueCar.texture,
+                     (Rectangle){0.0f, 0.0f, blueCar.texture.width, blueCar.texture.height},
+                     (Rectangle){blueCar.position.x, blueCar.position.y, blueCar.size.x, blueCar.size.y},
+                     (Vector2){4, 4},
+                     UP, WHITE);
+      DrawTexturePro(yellowCar.texture,
+                     (Rectangle){0.0f, 0.0f, yellowCar.texture.width, yellowCar.texture.height},
+                     (Rectangle){yellowCar.position.x, yellowCar.position.y, yellowCar.size.x, yellowCar.size.y},
                      (Vector2){4, 4},
                      UP, WHITE);
     }

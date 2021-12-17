@@ -30,12 +30,16 @@ void updateVehicle(HorizontalScroller *vehicle) {
   }
 }
 
-void updateEnemies(HorizontalScroller *waterLily, HorizontalScroller *truck, HorizontalScroller *redCar) {
+void updateEnemies(HorizontalScroller *waterLily, HorizontalScroller *truck, HorizontalScroller *redCar, HorizontalScroller *blueCar, HorizontalScroller *yellowCar) {
   std::thread threadUpdateWaterLily(updateWaterLily, waterLily);
   std::thread threadUpdateTruck(updateVehicle, truck);
   std::thread threadUpdateRedCar(updateVehicle, redCar);
+  std::thread threadUpdateBlueCar(updateVehicle, blueCar);
+  std::thread threadUpdateYellowCar(updateVehicle, yellowCar);
 
   threadUpdateWaterLily.join();
   threadUpdateTruck.join();
   threadUpdateRedCar.join();
+  threadUpdateBlueCar.join();
+  threadUpdateYellowCar.join();
 }
