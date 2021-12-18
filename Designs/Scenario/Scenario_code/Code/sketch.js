@@ -45,11 +45,16 @@ function setup(){
       
   fill(255, 255, 255);
   for(var i = 10; i < width; i += 200)
-    rect(i, ((height / 7) * 2)/* - 5*/, 100, 10);
+    rect(i, ((height / 7) * 2) - 5, 100, 10);
 
   for(var i = 10; i < width; i += 200)
-    rect(i, ((height / 7) * 5)/* - 5*/, 100, 10);
+    rect(i, ((height / 7) * 3) - 5, 100, 10);
+  
+  for(var i = 10; i < width; i += 200)
+    rect(i, ((height / 7) * 4) - 5, 100, 10);
 
+  for(var i = 10; i < width; i += 200)
+    rect(i, ((height / 7) * 5) - 5, 100, 10);
 
   // ======================================================
   // Colorindo o gramado
@@ -75,22 +80,6 @@ function setup(){
     for(var j = height - 20; j > height - 160; j -= 20)
       square(i, j, 10);
  
-  // ======================================================
-  // Colorindo o rio
-  fill(0, 0, 255);
-  rect(0, (height - 150) / 2, width, 150);
-
-  /*fill(0, 0, 220);
-  for(var i = 5; i < width; i += 420)
-    for(var j = ((height / 2) - 65); j < (height / 2) + 75; j += 40)
-      rect(i, j, 20, 10);
-  
-  fill(255, 255, 255);
-  for(var i = 10; i < width; i += 420)
-    for(var j = ((height / 2) - 62); j < (height / 2) + 75; j += 40)
-      rect(i, j, 10, 4);
-  */
-
   // ======================================================
   // Separando os slots
   /*stroke(0, 0, 0)
