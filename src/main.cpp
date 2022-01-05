@@ -11,6 +11,8 @@
 #include "raylib.h"
 
 bool end;
+typedef enum GameScreen { TITLE = 0,
+                          GAMEPLAY = 1 } GameScreen;
 
 int main(void) {
   // Initialization
@@ -25,6 +27,8 @@ int main(void) {
   const int gridSize_y = screenHeight / GRID_CONST_Y;
 
   InitWindow(screenWidth, screenHeight, "Projeto SO Final - teste player && scenario");
+
+  GameScreen currentScreen = TITLE;
 
   Texture2D background = LoadTexture("./Designs/Scenario/new_scenario.png");
 
@@ -93,6 +97,27 @@ int main(void) {
   // Main game loop
   while (!WindowShouldClose())  // Detect window close button or ESC key
   {
+    switch (currentScreen) {
+      case TITLE: {
+        // TODO: Update TITLE screen variables here!
+
+        // Press enter to change to GAMEPLAY screen
+        if (IsKeyPressed(KEY_ENTER)) {
+          currentScreen = GAMEPLAY;
+        }
+      } break;
+      case GAMEPLAY: {
+        // TODO: Update GAMEPLAY screen variables here!
+
+        // Press enter to change to ENDING screen
+        if (IsKeyPressed(KEY_X)) {
+          currentScreen = TITLE;
+        }
+      } break;
+      default:
+        break;
+    }
+
     if (!end) {
       // Update
       //----------------------------------------------------------------------------------
@@ -107,51 +132,65 @@ int main(void) {
       // Draw
       //----------------------------------------------------------------------------------
       BeginDrawing();
-
       ClearBackground(RAYWHITE);
 
-      DrawTextureEx(background, (Vector2){0, 0}, 0.0f, 0.55f, WHITE);
+      switch (currentScreen) {
+        case TITLE: {
+          DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
+          DrawText("SOgger", 20, 20, 40, DARKGREEN);
+          DrawText("SO + Frogger game", 20, 70, 30, DARKGREEN);
+          DrawText("PRESS [ENTER] to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
 
-      for (int i = 0; i <= screenWidth / gridSize_x; i++) DrawRectangle(gridSize_x * i, 0, 1, screenHeight, SKYBLUE);
-      for (int i = 0; i <= screenHeight / gridSize_y; i++) DrawRectangle(0, gridSize_y * i, screenWidth, 1, SKYBLUE);
+        } break;
 
-      DrawTexturePro(frogg.texture,                                                                // texture
-                     (Rectangle){0.0f, 0.0f, frogg.texture.width, frogg.texture.height},           // Source Rectangle = parte da textura que será usada
-                     (Rectangle){frogg.position.x, frogg.position.y, frogg.size.x, frogg.size.y},  // Destination Rectangle = posição na tela
-                     (Vector2){frogg.size.x / 2, frogg.size.y / 2},                                // Origin = ponto de rotação da textura
-                     frogg.rotation * 90.0f, WHITE);                                               // Rotation, colour
+        case GAMEPLAY: {
+          DrawTextureEx(background, (Vector2){0, 0}, 0.0f, 0.55f, WHITE);
 
-      DrawTexturePro(truck.texture,
-                     (Rectangle){0.0f, 0.0f, truck.texture.width, truck.texture.height},
-                     (Rectangle){truck.position.x, truck.position.y, truck.size.x, truck.size.y},
-                     (Vector2){4, 4},
-                     UP, WHITE);
-      DrawTexturePro(redCar.texture,
-                     (Rectangle){0.0f, 0.0f, redCar.texture.width, redCar.texture.height},
-                     (Rectangle){redCar.position.x, redCar.position.y, redCar.size.x, redCar.size.y},
-                     (Vector2){4, 4},
-                     UP, WHITE);
-      DrawTexturePro(blueCar.texture,
-                     (Rectangle){0.0f, 0.0f, blueCar.texture.width, blueCar.texture.height},
-                     (Rectangle){blueCar.position.x, blueCar.position.y, blueCar.size.x, blueCar.size.y},
-                     (Vector2){4, 4},
-                     UP, WHITE);
-      DrawTexturePro(yellowCar.texture,
-                     (Rectangle){0.0f, 0.0f, yellowCar.texture.width, yellowCar.texture.height},
-                     (Rectangle){yellowCar.position.x, yellowCar.position.y, yellowCar.size.x, yellowCar.size.y},
-                     (Vector2){4, 4},
-                     UP, WHITE);
-      DrawTexturePro(yellowCar2.texture,
-                     (Rectangle){0.0f, 0.0f, yellowCar2.texture.width, yellowCar2.texture.height},
-                     (Rectangle){yellowCar2.position.x, yellowCar2.position.y, yellowCar2.size.x, yellowCar2.size.y},
-                     (Vector2){4, 4},
-                     UP, WHITE);
+          for (int i = 0; i <= screenWidth / gridSize_x; i++) DrawRectangle(gridSize_x * i, 0, 1, screenHeight, SKYBLUE);
+          for (int i = 0; i <= screenHeight / gridSize_y; i++) DrawRectangle(0, gridSize_y * i, screenWidth, 1, SKYBLUE);
 
-      DrawText("move the frogg with arrow keys", 10, 10, 20, DARKGRAY);
+          DrawTexturePro(frogg.texture,                                                                // texture
+                         (Rectangle){0.0f, 0.0f, frogg.texture.width, frogg.texture.height},           // Source Rectangle = parte da textura que será usada
+                         (Rectangle){frogg.position.x, frogg.position.y, frogg.size.x, frogg.size.y},  // Destination Rectangle = posição na tela
+                         (Vector2){frogg.size.x / 2, frogg.size.y / 2},                                // Origin = ponto de rotação da textura
+                         frogg.rotation * 90.0f, WHITE);                                               // Rotation, colour
 
-      DrawText(TextFormat("frogg Position: %f %f", frogg.position.x, frogg.position.y), 10, 30, 20, BLACK);
-      DrawText(TextFormat("truck Position: %f %f", truck.position.x, truck.position.y), 10, 60, 20, BLACK);
-      // DrawText(TextFormat("Mouse Position: %f %f", GetMousePosition().x, GetMousePosition().y), 10, 60, 20, BLACK);
+          DrawTexturePro(truck.texture,
+                         (Rectangle){0.0f, 0.0f, truck.texture.width, truck.texture.height},
+                         (Rectangle){truck.position.x, truck.position.y, truck.size.x, truck.size.y},
+                         (Vector2){4, 4},
+                         UP, WHITE);
+          DrawTexturePro(redCar.texture,
+                         (Rectangle){0.0f, 0.0f, redCar.texture.width, redCar.texture.height},
+                         (Rectangle){redCar.position.x, redCar.position.y, redCar.size.x, redCar.size.y},
+                         (Vector2){4, 4},
+                         UP, WHITE);
+          DrawTexturePro(blueCar.texture,
+                         (Rectangle){0.0f, 0.0f, blueCar.texture.width, blueCar.texture.height},
+                         (Rectangle){blueCar.position.x, blueCar.position.y, blueCar.size.x, blueCar.size.y},
+                         (Vector2){4, 4},
+                         UP, WHITE);
+          DrawTexturePro(yellowCar.texture,
+                         (Rectangle){0.0f, 0.0f, yellowCar.texture.width, yellowCar.texture.height},
+                         (Rectangle){yellowCar.position.x, yellowCar.position.y, yellowCar.size.x, yellowCar.size.y},
+                         (Vector2){4, 4},
+                         UP, WHITE);
+          DrawTexturePro(yellowCar2.texture,
+                         (Rectangle){0.0f, 0.0f, yellowCar2.texture.width, yellowCar2.texture.height},
+                         (Rectangle){yellowCar2.position.x, yellowCar2.position.y, yellowCar2.size.x, yellowCar2.size.y},
+                         (Vector2){4, 4},
+                         UP, WHITE);
+
+          DrawText("move the frogg with arrow keys", 10, 10, 20, DARKGRAY);
+
+          DrawText(TextFormat("frogg Position: %f %f", frogg.position.x, frogg.position.y), 10, 30, 20, BLACK);
+          DrawText(TextFormat("truck Position: %f %f", truck.position.x, truck.position.y), 10, 60, 20, BLACK);
+
+        } break;
+        default:
+          break;
+      }
+
     } else {
       DrawRectangle(0, GetScreenHeight() / 2 - 70, GetScreenWidth(), 70, WHITE);
       DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 35) / 2, GetScreenHeight() / 2 - 50, 35, DARKGRAY);
