@@ -4,6 +4,7 @@
 
 #include <chrono>
 #include <thread>
+#include <vector>
 
 #include "../useHeaders/horizontalScroller.h"
 #include "../useHeaders/player.h"
@@ -91,6 +92,14 @@ int main(void) {
 
   end = false;
 
+  std::vector<HorizontalScroller> enemies;
+
+  enemies.push_back(truck);
+  enemies.push_back(redCar);
+  enemies.push_back(blueCar);
+  enemies.push_back(yellowCar);
+  enemies.push_back(yellowCar2);
+
   SetTargetFPS(60);  // Set our game to run at 60 frames-per-second
                      //--------------------------------------------------------------------------------------
 
@@ -122,10 +131,10 @@ int main(void) {
       // Update
       //----------------------------------------------------------------------------------
       end = updatePlayer(&frogg, end);
-      end = checkCollision(end, frogg.position.x, frogg.position.y, &truck, &redCar, &blueCar, &yellowCar, &yellowCar2);
+      end = checkCollision(end, frogg.position.x, frogg.position.y, &enemies);
 
-      updateEnemies(&truck, &redCar, &blueCar, &yellowCar, &yellowCar2);
-      end = checkCollision(end, frogg.position.x, frogg.position.y, &truck, &redCar, &blueCar, &yellowCar, &yellowCar2);
+      updateEnemies(&enemies);
+      end = checkCollision(end, frogg.position.x, frogg.position.y, &enemies);
 
       //----------------------------------------------------------------------------------
 
@@ -155,31 +164,13 @@ int main(void) {
                          (Vector2){frogg.size.x / 2, frogg.size.y / 2},                                // Origin = ponto de rotação da textura
                          frogg.rotation * 90.0f, WHITE);                                               // Rotation, colour
 
-          DrawTexturePro(truck.texture,
-                         (Rectangle){0.0f, 0.0f, truck.texture.width, truck.texture.height},
-                         (Rectangle){truck.position.x, truck.position.y, truck.size.x, truck.size.y},
-                         (Vector2){4, 4},
-                         UP, WHITE);
-          DrawTexturePro(redCar.texture,
-                         (Rectangle){0.0f, 0.0f, redCar.texture.width, redCar.texture.height},
-                         (Rectangle){redCar.position.x, redCar.position.y, redCar.size.x, redCar.size.y},
-                         (Vector2){4, 4},
-                         UP, WHITE);
-          DrawTexturePro(blueCar.texture,
-                         (Rectangle){0.0f, 0.0f, blueCar.texture.width, blueCar.texture.height},
-                         (Rectangle){blueCar.position.x, blueCar.position.y, blueCar.size.x, blueCar.size.y},
-                         (Vector2){4, 4},
-                         UP, WHITE);
-          DrawTexturePro(yellowCar.texture,
-                         (Rectangle){0.0f, 0.0f, yellowCar.texture.width, yellowCar.texture.height},
-                         (Rectangle){yellowCar.position.x, yellowCar.position.y, yellowCar.size.x, yellowCar.size.y},
-                         (Vector2){4, 4},
-                         UP, WHITE);
-          DrawTexturePro(yellowCar2.texture,
-                         (Rectangle){0.0f, 0.0f, yellowCar2.texture.width, yellowCar2.texture.height},
-                         (Rectangle){yellowCar2.position.x, yellowCar2.position.y, yellowCar2.size.x, yellowCar2.size.y},
-                         (Vector2){4, 4},
-                         UP, WHITE);
+          for (int i = 0; i <= enemies.size(); i++) {
+            DrawTexturePro(enemies[i].texture,
+                           (Rectangle){0.0f, 0.0f, enemies[i].texture.width, enemies[i].texture.height},
+                           (Rectangle){enemies[i].position.x, enemies[i].position.y, enemies[i].size.x, enemies[i].size.y},
+                           (Vector2){4, 4},
+                           UP, WHITE);
+          }
 
           DrawText("move the frogg with arrow keys", 10, 10, 20, DARKGRAY);
 

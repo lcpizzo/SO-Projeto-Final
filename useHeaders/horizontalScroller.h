@@ -1,6 +1,8 @@
 #ifndef _HORIZONTALCROLLER_
 #define _HORIZONTALCROLLER_
 
+#include <vector>
+
 #include "raylib.h"
 
 typedef struct HorizontalScroller {
@@ -11,7 +13,7 @@ typedef struct HorizontalScroller {
   Vector2 speed;
 } HorizontalScroller;
 
-void updateEnemies(HorizontalScroller *truck, HorizontalScroller *redCar, HorizontalScroller *blueCar, HorizontalScroller *yellowCar, HorizontalScroller *yellowCar2);
-bool checkCollision(bool end, float x, float y, HorizontalScroller *truck, HorizontalScroller *redCar, HorizontalScroller *blueCar, HorizontalScroller *yellowCar, HorizontalScroller *yellowCar2);
+void updateEnemies(std::vector<HorizontalScroller> *enemies);
+bool checkCollision(bool end, float x, float y, std::vector<HorizontalScroller> *enemies);
 
 #endif

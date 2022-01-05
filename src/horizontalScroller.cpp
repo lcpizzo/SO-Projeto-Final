@@ -7,6 +7,7 @@
 #include <iostream>
 #include <mutex>
 #include <thread>
+#include <vector>
 
 #include "../useHeaders/horizontalScroller.h"
 #include "../useHeaders/player.h"
@@ -48,13 +49,12 @@ bool checkVehicle(bool end, float x, float y, HorizontalScroller *vehicle) {
   return end;
 }
 
-bool checkCollision(bool end, float x, float y, HorizontalScroller *truck, HorizontalScroller *redCar, HorizontalScroller *blueCar, HorizontalScroller *yellowCar, HorizontalScroller *yellowCar2) {
-  end = checkVehicle(end, x, y, truck);
-  end = checkVehicle(end, x, y, redCar);
-  end = checkVehicle(end, x, y, blueCar);
-  end = checkVehicle(end, x, y, yellowCar);
-  end = checkVehicle(end, x, y, yellowCar2);
-
+bool checkCollision(bool end, float x, float y, std::vector<HorizontalScroller> *enemies) {
+  end = checkVehicle(end, x, y, &(*enemies)[0]);
+  end = checkVehicle(end, x, y, &(*enemies)[1]);
+  end = checkVehicle(end, x, y, &(*enemies)[2]);
+  end = checkVehicle(end, x, y, &(*enemies)[3]);
+  end = checkVehicle(end, x, y, &(*enemies)[4]);
   return end;
 }
 
@@ -76,12 +76,12 @@ void updateVehicle(HorizontalScroller *vehicle) {
 //   }
 // }
 
-void updateEnemies(HorizontalScroller *truck, HorizontalScroller *redCar, HorizontalScroller *blueCar, HorizontalScroller *yellowCar, HorizontalScroller *yellowCar2) {
-  std::thread threadUpdateTruck(updateVehicle, truck);
-  std::thread threadUpdateRedCar(updateVehicle, redCar);
-  std::thread threadUpdateBlueCar(updateVehicle, blueCar);
-  std::thread threadUpdateYellowCar(updateVehicle, yellowCar);
-  std::thread threadUpdateYellowCar2(updateVehicle, yellowCar2);
+void updateEnemies(std::vector<HorizontalScroller> *enemies) {
+  std::thread threadUpdateTruck(updateVehicle, &(*enemies)[0]);
+  std::thread threadUpdateRedCar(updateVehicle, &(*enemies)[1]);
+  std::thread threadUpdateBlueCar(updateVehicle, &(*enemies)[2]);
+  std::thread threadUpdateYellowCar(updateVehicle, &(*enemies)[3]);
+  std::thread threadUpdateYellowCar2(updateVehicle, &(*enemies)[4]);
 
   threadUpdateTruck.join();
   threadUpdateRedCar.join();
