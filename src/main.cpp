@@ -146,9 +146,12 @@ int main(void) {
       switch (currentScreen) {
         case TITLE: {
           DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
-          DrawText("SOgger", 20, 20, 40, DARKGREEN);
-          DrawText("SO + Frogger game", 20, 70, 30, DARKGREEN);
-          DrawText("PRESS [ENTER] to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+          DrawText("SOgger", 120, 20, 40, DARKGREEN);
+          DrawText("SO + Frogger game", 120, 70, 30, DARKGREEN);
+          DrawText("Use as setinhas [<-][^][v][->] para controlar o sapo", 120, 220, 20, BLACK);
+          DrawText("Desvie dos veículos e tente chegar até o final da avenida.\nChegando lá, retorne para o início e ganhe pontos!",
+                   120, 250, 20, BLACK);
+          DrawText("Pressione [ENTER] para jogar!", 120, 420, 30, BLACK);
 
         } break;
 
