@@ -27,7 +27,7 @@ int main(void) {
   const int gridSize_x = screenWidth / GRID_CONST_X;
   const int gridSize_y = screenHeight / GRID_CONST_Y;
 
-  InitWindow(screenWidth, screenHeight, "Projeto SO Final - teste player && scenario");
+  InitWindow(screenWidth, screenHeight, "SOgger");
 
   GameScreen currentScreen = TITLE;
 
@@ -193,36 +193,20 @@ int main(void) {
         frogg.position.y = (float)gridSize_y * 6 + gridSize_y / 2;
         frogg.rotation = UP;
 
-        DrawTexturePro(truck.texture,
-                       (Rectangle){0.0f, 0.0f, truck.texture.width, truck.texture.height},
-                       (Rectangle){truck.position.x, truck.position.y, truck.size.x, truck.size.y},
-                       (Vector2){4, 4},
-                       UP, WHITE);
-        DrawTexturePro(redCar.texture,
-                       (Rectangle){0.0f, 0.0f, redCar.texture.width, redCar.texture.height},
-                       (Rectangle){redCar.position.x, redCar.position.y, redCar.size.x, redCar.size.y},
-                       (Vector2){4, 4},
-                       UP, WHITE);
-        DrawTexturePro(blueCar.texture,
-                       (Rectangle){0.0f, 0.0f, blueCar.texture.width, blueCar.texture.height},
-                       (Rectangle){blueCar.position.x, blueCar.position.y, blueCar.size.x, blueCar.size.y},
-                       (Vector2){4, 4},
-                       UP, WHITE);
-        DrawTexturePro(yellowCar.texture,
-                       (Rectangle){0.0f, 0.0f, yellowCar.texture.width, yellowCar.texture.height},
-                       (Rectangle){yellowCar.position.x, yellowCar.position.y, yellowCar.size.x, yellowCar.size.y},
-                       (Vector2){4, 4},
-                       UP, WHITE);
-        DrawTexturePro(yellowCar2.texture,
-                       (Rectangle){0.0f, 0.0f, yellowCar2.texture.width, yellowCar2.texture.height},
-                       (Rectangle){yellowCar2.position.x, yellowCar2.position.y, yellowCar2.size.x, yellowCar2.size.y},
-                       (Vector2){4, 4},
-                       UP, WHITE);
-        DrawTexturePro(frogg_end,
-                       (Rectangle){0.0f, 0.0f, frogg_end.width, frogg_end.height},
-                       (Rectangle){frogg.position.x, frogg.position.y, frogg_end.width * 0.6, frogg_end.height * 0.6},
-                       (Vector2){frogg.size.x / 2, frogg.size.y / 2},
-                       frogg.rotation * 90.0f, WHITE);
+        /* acho que nao precisa dessa parte aqui: */
+
+        // for (int i = 0; i <= enemies.size(); i++) {
+        //   DrawTexturePro(enemies[i].texture,
+        //                  (Rectangle){0.0f, 0.0f, enemies[i].texture.width, enemies[i].texture.height},
+        //                  (Rectangle){enemies[i].position.x, enemies[i].position.y, enemies[i].size.x, enemies[i].size.y},
+        //                  (Vector2){4, 4},
+        //                  UP, WHITE);
+        // }
+        // DrawTexturePro(frogg_end,
+        //                (Rectangle){0.0f, 0.0f, frogg_end.width, frogg_end.height},
+        //                (Rectangle){frogg.position.x, frogg.position.y, frogg_end.width * 0.6, frogg_end.height * 0.6},
+        //                (Vector2){frogg.size.x / 2, frogg.size.y / 2},
+        //                frogg.rotation * 90.0f, WHITE);
       }
     }
     EndDrawing();
