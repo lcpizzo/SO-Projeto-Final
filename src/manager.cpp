@@ -36,9 +36,9 @@ void cont(sem_t *sem, bool *end, bool *top, int *score, std::vector<HorizontalSc
     }
 
     DrawTexturePro(frogg->texture,                                                                   // texture
-                   (Rectangle){0.0f, 0.0f, frogg->texture.width, frogg->texture.height},             // Source Rectangle = parte da textura que ser� usada
-                   (Rectangle){frogg->position.x, frogg->position.y, frogg->size.x, frogg->size.y},  // Destination Rectangle = posi��o na tela
-                   (Vector2){frogg->size.x / 2, frogg->size.y / 2},                                  // Origin = ponto de rota��o da textura
+                   (Rectangle){0.0f, 0.0f, frogg->texture.width, frogg->texture.height},             // Source Rectangle = parte da textura que sera usada
+                   (Rectangle){frogg->position.x, frogg->position.y, frogg->size.x, frogg->size.y},  // Destination Rectangle = posicao na tela
+                   (Vector2){frogg->size.x / 2, frogg->size.y / 2},                                  // Origin = ponto de rotacao da textura
                    frogg->rotation * 90.0f, WHITE);                                                  // Rotation, colour
 
     for (int i = 0; i <= enemies->size(); i++) {

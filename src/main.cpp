@@ -69,7 +69,7 @@ int main(void) {
   blueCar.texture = LoadTexture("./Designs/Enimies/blue_car.png");
   blueCar.movement.x = (float)gridSize_x;
   blueCar.position.x = (float)gridSize_x * 10;
-  blueCar.position.y = (float)gridSize_y * 2;
+  blueCar.position.y = (float)gridSize_y * 3;
   blueCar.speed.x = 0.037;
   blueCar.size.x = blueCar.texture.width * 0.7f;
   blueCar.size.y = blueCar.texture.height * 0.7f;
@@ -83,21 +83,21 @@ int main(void) {
   yellowCar.size.x = yellowCar.texture.width * 0.7f;
   yellowCar.size.y = yellowCar.texture.height * 0.7f;
 
-  HorizontalScroller yellowCar2;
-  yellowCar2.texture = LoadTexture("./Designs/Enimies/yellow_car.png");
-  yellowCar2.movement.x = (float)gridSize_x;
-  yellowCar2.position.x = (float)gridSize_x * 10;
-  yellowCar2.position.y = (float)gridSize_y * 3;
-  yellowCar2.speed.x = 0.057;
-  yellowCar2.size.x = yellowCar2.texture.width * 0.7f;
-  yellowCar2.size.y = yellowCar2.texture.height * 0.7f;
+  HorizontalScroller truck2;
+  truck2.texture = LoadTexture("./Designs/Enimies/truck.png");
+  truck2.movement.x = (float)gridSize_x;
+  truck2.position.x = (float)gridSize_x * 10;
+  truck2.position.y = (float)gridSize_y * 2;
+  truck2.speed.x = 0.027;
+  truck2.size.x = truck2.texture.width * 0.7f;
+  truck2.size.y = truck2.texture.height * 0.7f;
 
   std::vector<HorizontalScroller> enemies;
   enemies.push_back(truck);
   enemies.push_back(redCar);
   enemies.push_back(blueCar);
   enemies.push_back(yellowCar);
-  enemies.push_back(yellowCar2);
+  enemies.push_back(truck2);
 
   int score = 0;
   double prev_score = score;
@@ -137,11 +137,19 @@ int main(void) {
         threadGameOver.join();
 
         if (score != prev_score) {
-          enemies[0].speed.x = 0.01 + score * (rand() % 30) / 100;
-          enemies[1].speed.x = 0.03 + score * (rand() % 30) / 100;
-          enemies[2].speed.x = 0.037 + score * (rand() % 30) / 100;
-          enemies[3].speed.x = 0.047 + score * (rand() % 30) / 100;
-          enemies[4].speed.x = 0.057 + score * (rand() % 30) / 100;
+          enemies[0].speed.x += 0.01;
+          enemies[1].speed.x += 0.01;
+          enemies[2].speed.x += 0.01;
+          enemies[3].speed.x += 0.01;
+          enemies[4].speed.x += 0.01;
+        }
+
+        if (score == 0) {
+          enemies[0].speed.x = 0.025;
+          enemies[1].speed.x = 0.03;
+          enemies[2].speed.x = 0.037;
+          enemies[3].speed.x = 0.047;
+          enemies[4].speed.x = 0.027;
         }
       } break;
 
