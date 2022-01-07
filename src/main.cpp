@@ -12,14 +12,8 @@
 #include "../useHeaders/utils.h"
 #include "raylib.h"
 
-typedef enum GameScreen {
-  TITLE = 0,
-  GAMEPLAY = 1
-} GameScreen;
-
 int main(void) {
-  // Initialization
-  //--------------------------------------------------------------------------------------
+  // Inicializacao de variaveis
   const int GRID_CONST_X = 10;
   const int GRID_CONST_Y = 7;
 
@@ -29,6 +23,7 @@ int main(void) {
   const int gridSize_x = screenWidth / GRID_CONST_X;
   const int gridSize_y = screenHeight / GRID_CONST_Y;
 
+  // Inicializa a janela do jogo com os tamanhos ja definidos
   InitWindow(screenWidth, screenHeight, "SOgger");
 
   GameScreen currentScreen = TITLE;
@@ -37,6 +32,7 @@ int main(void) {
 
   Texture2D frogg_end = LoadTexture("./Designs/Player/frog_jumping.png");
 
+  // Inicializacao e atribuicao dos valores para o 'personagem' e 'inimigos'
   Player frogg;
   frogg.texture = LoadTexture("./Designs/Player/frog.png");
   frogg.movement.x = (float)gridSize_x;
@@ -92,6 +88,7 @@ int main(void) {
   truck2.size.x = truck2.texture.width * 0.7f;
   truck2.size.y = truck2.texture.height * 0.7f;
 
+  // Insere os 'inimigos' em um vetor para facilitar a manipulacao
   std::vector<HorizontalScroller> enemies;
   enemies.push_back(truck);
   enemies.push_back(redCar);
@@ -104,38 +101,59 @@ int main(void) {
   bool top = true;
   bool end = false;
 
+  // Inicializacao do semaforo
   sem_t sem;
   sem_init(&sem, 0, 1);
 
-  SetTargetFPS(60);  // Set our game to run at 60 frames-per-second
-                     //--------------------------------------------------------------------------------------
+  // Inicializa o jogo a 60 frames por segundo
+  SetTargetFPS(60);
 
-  // Main game loop
-  while (!WindowShouldClose())  // Detect window close button or ESC key
+  // Principal loop do jogo
+  while (!WindowShouldClose())  // Detecta o fechamento da janela (ou pela tecla ESC)
   {
     BeginDrawing();
 
+    // 2 telas do jogo:
+    // TITLE: Primeira tela com titulo e instrucoes do jogo
+    // GAMEPLAY: Tela principal do jogo em execucao
     switch (currentScreen) {
       case TITLE: {
+        // Textos da tela TITLE
         DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
         DrawText("SOgger", 120, 20, 40, DARKGREEN);
         DrawText("SO + Frogger game", 120, 70, 30, DARKGREEN);
-        DrawText("Use as setinhas [<-][^][v][->] para controlar o sapo", 120, 220, 20, BLACK);
-        DrawText("Desvie dos veículos e tente chegar até o final da avenida.\nChegando lá, retorne para o início e ganhe pontos!",
+        DrawText("Use as setinhas [<-][^][v][->] para controlar o sapo.", 120, 220, 20, BLACK);
+        DrawText("Desvie dos veículos e tente chegar até o final da avenida.\nChegando lá, retorne para o início e ganhe pontos!\nSe você morrer, espere 2 segundos para reiniciar o jogo.",
                  120, 250, 20, BLACK);
         DrawText("Pressione [ENTER] para jogar!", 120, 420, 30, BLACK);
+
+        // Alterna para a tela GAMEPLAY quando pressionada a tecla ENTER
         if (IsKeyPressed(KEY_ENTER))
           currentScreen = GAMEPLAY;
+
       } break;
 
       case GAMEPLAY: {
         prev_score = score;
+
+        /*
+         Inicializacao das 2 threads do jogo
+         threadCont: thread que chama a funcao cont(), que executa as principais funcoes do jogo
+         threadGameOver: thread que chama a funcao gameover(), que executa as funcoes quando o personagem morre e o jogo finaliza e recomeca
+
+         apesar das duas threads ocorrerem simultaneamente, a thread de fim de jogo apenas realiza a parada se uma colisao e consequentemente
+            o fim de jogo for desencadeado, caso contrario ela comeca e termina sem fazer nada alem de checar se o jogo acabou
+            enquanto a thread cont realiza todas as funcoes de mudanca de posicao dos objetos, atualizar o score e checar a colisao
+        */
         std::thread threadCont(cont, &sem, &end, &top, &score, &enemies, &frogg, &background);
         std::thread threadGameOver(gameOver, &sem, &end, &top, &score, &enemies, &frogg, &frogg_end);
 
+        // Espera para que a threadCont finalize
         threadCont.join();
+        // Espera para que a threadGameOver finalize
         threadGameOver.join();
 
+        // Aumenta a velocidade dos 'inimigos' conforme o jogador ganha mais pontos
         if (score != prev_score) {
           enemies[0].speed.x += 0.01;
           enemies[1].speed.x += 0.01;
@@ -144,6 +162,7 @@ int main(void) {
           enemies[4].speed.x += 0.01;
         }
 
+        // Retorna a velocidade inicial dos 'inimigos' quando o jogador morre
         if (score == 0) {
           enemies[0].speed.x = 0.025;
           enemies[1].speed.x = 0.03;
@@ -159,10 +178,9 @@ int main(void) {
     EndDrawing();
   }
 
-  // De-Initialization
-  //--------------------------------------------------------------------------------------
-  CloseWindow();  // Close window and OpenGL context
+  CloseWindow();
+
+  // Finaliza o semaforo
   sem_destroy(&sem);
-  //--------------------------------------------------------------------------------------
   return 0;
 }
