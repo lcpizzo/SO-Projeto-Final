@@ -30,10 +30,7 @@ void cont(sem_t *sem, bool *end, bool *top, int *score, std::vector<HorizontalSc
 
     DrawTextureEx(*background, (Vector2){0, 0}, 0.0f, 0.55f, WHITE);
 
-    if (*end) {
-      DrawRectangle(0, GetScreenHeight() / 2 - 70, GetScreenWidth(), 70, WHITE);
-      DrawText("GAME OVER", GetScreenWidth() / 2 - MeasureText("GAME OVER", 35) / 2, GetScreenHeight() / 2 - 50, 35, DARKGRAY);
-    }
+    //
 
     DrawTexturePro(frogg->texture,                                                                   // texture
                    (Rectangle){0.0f, 0.0f, frogg->texture.width, frogg->texture.height},             // Source Rectangle = parte da textura que sera usada
@@ -50,6 +47,11 @@ void cont(sem_t *sem, bool *end, bool *top, int *score, std::vector<HorizontalSc
     }
 
     DrawText(TextFormat("Score: %d", *score * 100), 10, 10, 50, WHITE);
+
+    if (*end) {
+      DrawRectangle(0, GetScreenHeight() / 2 - 70, GetScreenWidth(), 70, WHITE);
+      DrawText("GAME OVER", GetScreenWidth() / 2 - MeasureText("GAME OVER", 35) / 2, GetScreenHeight() / 2 - 50, 35, DARKGRAY);
+    }
   }
 }
 
